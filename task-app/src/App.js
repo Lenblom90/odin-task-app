@@ -10,7 +10,17 @@ function App() {
       title: document.getElementById("task").value
     }
     setTasks([...tasks, task]);
-  } 
+  }
+  
+  const deleteTask = (e) => {
+    setTasks(tasks.filter(x => x.id !== e.target.id))
+  }
+
+  const editTask = (e) => {
+    let task = tasks.filter(x => x.id === e.target.attributes.itemid.value);
+    task.title = document.getElementById('editField').value;
+    setTasks();    
+  }
 
   return (
     <div>
@@ -20,7 +30,7 @@ function App() {
         <input id="task"/>
         <button onClick={addTask}>Submit</button>
       </div>
-      <Overview tasks={tasks}/>
+      <Overview tasks={tasks} handleDelete={deleteTask} handleEdit={editTask}/>
     </div>
   )
 }
